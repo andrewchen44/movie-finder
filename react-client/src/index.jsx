@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import app from './reducers/index.jsx';
 import List from './components/List.jsx';
-
-const store = createStore(app);
 
 class App extends React.Component {
   constructor(props) {
@@ -17,12 +12,11 @@ class App extends React.Component {
 
   render () {
     return (
-    <Provider store={store}>
-      <div>
-        <h1>Item List</h1>
-        <List items={this.state.items}/>
-      </div>
-    </Provider>)
+    <div>
+      <h1>Item List</h1>
+      <List items={this.state.items}/>
+    </div>
+    )
   }
 }
 
