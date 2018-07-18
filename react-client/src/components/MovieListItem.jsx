@@ -1,10 +1,9 @@
 import React from 'react';
 
-const MovieListItem = (props) => (
-  <div>
-    movie title and image here
+const MovieListItem = ({ movie }) => (
+  <div className='movie-title '>
+    { movie }
   </div>
 )
-
 
 export default MovieListItem;
