@@ -2,11 +2,10 @@ import React from 'react';
 
 const SearchBar = ({ handleSearch }) => {
   return (
-    <input type='text' onChange={handleSearch}/>
+    <div className='search-bar-container'>
+      <input placeholder='Enter the name of the movie you are looking for...' type='text' onKeyUp={handleSearch} className='search-input'/>
+    </div>
   )
 }
-
-// https://developers.themoviedb.org/3/search/search-movies
-
 
 export default SearchBar;
