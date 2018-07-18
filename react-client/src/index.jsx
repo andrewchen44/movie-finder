@@ -15,38 +15,39 @@ class App extends React.Component {
 
   handleSearch(e) {
     const query = e.target.value;
-    const movies = [];
+    this.setState({ movies: [] })
+    let timeout = null;
 
     const getMovies = (page) => {
-      const uri = `https://api.themoviedb.org/3/search/keyword?api_key=403ffcb3b4481da342203f94fb6e937e&query=${query}&page=${page}`;
+      const uri = `https://api.themoviedb.org/3/search/movie?api_key=403ffcb3b4481da342203f94fb6e937e&query=${query}&page=${page}`;
       axios.get(uri)
       .then((response) => {
-        console.log(response)
-        // const results = response.results;
-        // results.forEach((movie) => {
-        //     movies.push(movie.title)
-        // })
-        // if(response.page < response.total_pages) {
-        //   getMovies(page++);
-        // } else {
-        //   // might be slow if there are a lot of pages, might need to set state with each call
-        //   this.setState({movies: movies})
-        // }
+        const movies = [];
+        const results = response.data.results;
+        results.forEach((movie) => { movies.push(movie.title) })
+        this.setState({ movies: [...this.state.movies, ...movies] })
+        if(response.data.page < response.data.total_pages) {
+          clearTimeout(timeout);
+          const newPage = page + 1;
+          timeout = setTimeout(() => {
+            getMovies(newPage);
+          }, 500)
+        }
       })
-      .catch((error) => {
-        console.log('error ----->', error)
-      })
+      .catch((error) => { console.log('error ----->', error) })
     }
     getMovies(1);
   }
 
   render () {
     return (
-    <div>
-      <h1>Item List</h1>
-      <SearchBar handleSearch={this.handleSearch}/>
-      <MovieList movies={this.state.movies}/>
-    </div>
+      <div className='application-container'>
+        <div className='application'>
+            <h1 className='application-title'>Andrew's Movie Finder</h1>
+            <SearchBar handleChange={this.handleChange} handleSearch={this.handleSearch} />
+            <MovieList movies={this.state.movies} />
+        </div>
+      </div>
     )
   }
 }
