@@ -14,3 +14,5 @@ Design Decision Reasoning:
 Future Improvements: 
   1. Additional styling to make the application look much better.
   2. Storing the movie titles in Redux so they are easier to acccess in larger applications.
+  3. Show movie image as well as title.
+  4. Display more than one movie on each line.
